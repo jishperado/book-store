@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — BookStore</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand">📚 BookStore</a>
+  <div class="nav-links">
+    <a href="/">Store</a>
+    <span id="nav-user"></span>
+    <button id="auth-btn">Sign Out</button>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <h1>Admin Panel</h1>
+  </div>
+
+  <div class="admin-tabs">
+    <button class="admin-tab active" onclick="showTab('books')">Books</button>
+    <button class="admin-tab" onclick="showTab('orders')">Orders</button>
+  </div>
+
+  <!-- Books Tab -->
+  <div id="tab-books">
+    <div class="page-header">
+      <h2 style="font-size:1.1rem;color:#64748b">Manage Books</h2>
+      <button class="btn btn-primary" onclick="openBookForm()">+ Add Book</button>
+    </div>
+
+    <div class="table-wrap">
+      <table id="books-table">
+        <thead>
+          <tr>
+            <th>Title</th><th>Author</th><th>Category</th>
+            <th>Price</th><th>Stock</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="books-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Orders Tab -->
+  <div id="tab-orders" style="display:none">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Order #</th><th>Customer</th><th>Email</th>
+            <th>Total</th><th>Status</th><th>Date</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="orders-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Book Form Modal -->
+<div id="book-modal" class="modal-overlay hidden">
+  <div class="modal" style="max-width:560px">
+    <button class="close-btn" onclick="closeBookForm()">&times;</button>
+    <h2 id="book-modal-title">Add Book</h2>
+    <form onsubmit="saveBook(event)" style="margin-top:1rem">
+      <div class="book-form">
+        <input type="hidden" id="book-id" />
+        <input class="full" type="text" id="book-title" placeholder="Title *" required />
+        <input type="text" id="book-author" placeholder="Author *" required />
+        <select id="book-category">
+          <option value="">Category</option>
+          <option>Fiction</option>
+          <option>Non-Fiction</option>
+          <option>Science</option>
+          <option>Technology</option>
+          <option>History</option>
+          <option>Biography</option>
+          <option>Self-Help</option>
+          <option>Children</option>
+        </select>
+        <input type="number" id="book-price" placeholder="Price *" step="0.01" min="0" required />
+        <input type="number" id="book-stock" placeholder="Stock" min="0" value="0" />
+        <input class="full" type="url" id="book-image" placeholder="Image URL (optional)" />
+        <textarea class="full" id="book-desc" placeholder="Description"></textarea>
+        <div class="full" style="display:flex;gap:.75rem;justify-content:flex-end">
+          <button type="button" class="btn btn-outline" onclick="closeBookForm()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Book</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="/js/api.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>

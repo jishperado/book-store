@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmed — BookStore</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    .result-box { max-width: 480px; margin: 5rem auto; text-align: center; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 3rem 2rem; }
+    .icon { font-size: 4rem; margin-bottom: 1rem; }
+    h1 { color: #16a34a; margin-bottom: 0.5rem; }
+    p { color: #64748b; margin-bottom: 1.5rem; }
+    .order-id { font-weight: 700; color: #1e293b; font-size: 1.1rem; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-brand">📚 BookStore</a>
+  <div class="nav-links"><a href="/">Home</a></div>
+</nav>
+<div class="container">
+  <div class="result-box">
+    <div class="icon">✅</div>
+    <h1>Payment Successful!</h1>
+    <p>Your order has been confirmed. Thank you for shopping with us.</p>
+    <p id="order-ref"></p>
+    <a href="/" class="btn btn-primary">Continue Shopping</a>
+  </div>
+</div>
+<script>
+  const params = new URLSearchParams(location.search);
+  const orderId = params.get('order_id');
+  if (orderId) {
+    document.getElementById('order-ref').innerHTML = `Order reference: <span class="order-id">#${orderId}</span>`;
+  }
+</script>
+</body>
+</html>

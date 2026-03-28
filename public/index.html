@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookStore</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand">📚 BookStore</a>
+  <div class="nav-links">
+    <a href="/cart">Cart <span id="cart-count"></span></a>
+    <span id="nav-user"></span>
+    <button id="auth-btn" onclick="openAuth()">Sign In</button>
+    <a id="admin-link" href="/admin" style="display:none">Admin</a>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="search-bar">
+    <input id="search-input" type="text" placeholder="Search by title or author..." />
+    <select id="category-filter">
+      <option value="">All Categories</option>
+      <option>Fiction</option>
+      <option>Non-Fiction</option>
+      <option>Science</option>
+      <option>Technology</option>
+      <option>History</option>
+      <option>Biography</option>
+      <option>Self-Help</option>
+      <option>Children</option>
+    </select>
+    <button class="btn btn-primary" onclick="fetchBooks()">Search</button>
+  </div>
+
+  <div id="books-grid" class="books-grid"></div>
+</div>
+
+<!-- Auth Modal -->
+<div id="auth-modal" class="modal-overlay hidden">
+  <div class="modal">
+    <button class="close-btn" onclick="closeAuth()">&times;</button>
+    <div class="tabs">
+      <div class="tab active" id="login-tab" onclick="switchTab('login')">Sign In</div>
+      <div class="tab" id="register-tab" onclick="switchTab('register')">Register</div>
+    </div>
+
+    <form id="login-form" onsubmit="doLogin(event)">
+      <input type="email" id="login-email" placeholder="Email" required />
+      <input type="password" id="login-password" placeholder="Password" required />
+      <p class="error-msg" id="login-error"></p>
+      <button class="btn btn-primary" type="submit">Sign In</button>
+    </form>
+
+    <form id="register-form" style="display:none" onsubmit="doRegister(event)">
+      <input type="text" id="reg-name" placeholder="Full Name" required />
+      <input type="email" id="reg-email" placeholder="Email" required />
+      <input type="password" id="reg-password" placeholder="Password (min 6 chars)" minlength="6" required />
+      <p class="error-msg" id="reg-error"></p>
+      <button class="btn btn-primary" type="submit">Create Account</button>
+    </form>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="/js/api.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>
