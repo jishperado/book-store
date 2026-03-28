@@ -1,9 +1,14 @@
 const { Pool } = require('pg');
 require('dotenv').config();
 
+// Railway internal URLs (.railway.internal) don't use SSL; public proxy URLs do
+const dbUrl = process.env.DATABASE_URL || '';
+const useSSL = process.env.DATABASE_SSL === 'true' ||
+  (!dbUrl.includes('.railway.internal') && process.env.NODE_ENV === 'production');
+
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+  connectionString: dbUrl,
+  ssl: useSSL ? { rejectUnauthorized: false } : false,
 });
 
 async function initSchema() {
