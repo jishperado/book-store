@@ -8,11 +8,15 @@
 </head>
 <body>
 
+<div class="top-bar">
+  <span>Welcome to BookStore</span>
+  <span id="nav-user"></span>
+</div>
+
 <nav>
-  <a href="/" class="nav-brand">📚 BookStore</a>
+  <a href="/" class="nav-brand">BookStore</a>
   <div class="nav-links">
     <a href="/cart">Cart <span id="cart-count"></span></a>
-    <span id="nav-user"></span>
     <button id="auth-btn" onclick="openAuth()">Sign In</button>
     <a id="admin-link" href="/admin" style="display:none">Admin</a>
   </div>

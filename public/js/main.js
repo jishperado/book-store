@@ -48,13 +48,14 @@ function bookCard(b) {
     <div class="book-card">
       ${img}
       <div class="book-card-body">
+        ${b.category ? `<div class="book-category">${b.category}</div>` : ''}
         <div class="book-title">${b.title}</div>
         <div class="book-author">${b.author}</div>
-        <div class="book-stock">${b.stock > 0 ? `${b.stock} in stock` : '<span style="color:#dc2626">Out of stock</span>'}</div>
+        <div class="book-stock">${b.stock > 0 ? `<span class="in-stock">${b.stock} in stock</span>` : '<span class="out-stock">Sold Out</span>'}</div>
         <div class="book-price">$${parseFloat(b.price).toFixed(2)}</div>
         ${b.stock > 0
           ? `<button class="btn btn-primary" onclick="addToCart(${b.id}, '${b.title.replace(/'/g, "\\'")}')">Add to Cart</button>`
-          : `<button class="btn btn-outline" disabled>Out of Stock</button>`
+          : `<button class="btn btn-outline" disabled>Sold Out</button>`
         }
       </div>
     </div>`;
