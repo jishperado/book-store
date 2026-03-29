@@ -1,14 +1,13 @@
 const { Pool } = require('pg');
 require('dotenv').config();
 
-// Railway internal URLs (.railway.internal) don't use SSL; public proxy URLs do
-const dbUrl = process.env.DATABASE_URL || '';
-const useSSL = process.env.DATABASE_SSL === 'true' ||
-  (!dbUrl.includes('.railway.internal') && process.env.NODE_ENV === 'production');
+// Railway TCP proxy doesn't use SSL; internal network doesn't either
+// Only enable SSL when explicitly required via DATABASE_SSL=true
+const rawUrl = (process.env.DATABASE_URL || '').replace(/[?&]sslmode=[^&]*/g, '');
 
 const pool = new Pool({
-  connectionString: dbUrl,
-  ssl: useSSL ? { rejectUnauthorized: false } : false,
+  connectionString: rawUrl,
+  ssl: process.env.DATABASE_SSL === 'true' ? { rejectUnauthorized: false } : false,
 });
 
 async function initSchema() {
